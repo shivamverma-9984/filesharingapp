@@ -1,104 +1,62 @@
 'use client';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
-
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useAuth } from '../app/_context/AuthContext';
 
 export default function Header() {
   const router = useRouter();
-  const [userEmail,setUserEmail]=useState(null); 
+  const { user, logout } = useAuth();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-
-
-
-  // useEffect(() => {
-  //   // Improved cookie check function
-  //   const checkAuth = () => {
-  //     const getCookie = (name) => {
-  //       const value = `; ${document.cookie}`;
-  //       const parts = value.split(`; ${name}=`);
-  //       if (parts.length === 2) return parts.pop().split(';').shift();
-  //     };
-      
-  //     const token = getCookie('token');
-  //     const email = getCookie('userEmail');
-  //     setIsAuthenticated(!!token && !!email);
-  //   };
-
-  //   // Check immediately
-  //   checkAuth();
-
-  //   // Check on focus/visibility change
-  //   const handleVisibilityChange = () => {
-  //     if (document.visibilityState === 'visible') {
-  //       checkAuth();
-  //     }
-  //   };
-    
-  //   document.addEventListener('visibilitychange', handleVisibilityChange);
-  //   window.addEventListener('focus', checkAuth);
-
-  //   // Set up interval to check auth status
-  //   const interval = setInterval(checkAuth, 1000);
-
-  //   return () => {
-  //     document.removeEventListener('visibilitychange', handleVisibilityChange);
-  //     window.removeEventListener('focus', checkAuth);
-  //     clearInterval(interval);
-      
-  //   };
-  // }, []);
-
-  // const handleLogout = async () => {
-  //   try {
-  //     await fetch('/api/logout', { method: 'POST', credentials: 'include' });
-  //   } catch (err) {
-  //     // fallback to client-side cookie clear if API call fails
-  //     document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  //     document.cookie = 'userEmail=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  //   }
-  //   router.push('/login');
-  // };
+  const handleLogout = async () => {
+    await logout();
+    router.push('/');
+    setDropdownOpen(false);
+  };
 
   return (
     <header className="bg-white shadow-sm">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between items-center">
-          <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-indigo-600">
-              FileHub
-            </Link>
-          </div>
+          <Link href="/" className="text-2xl font-bold text-indigo-600">
+            FileHub
+          </Link>
           <div className="flex items-center space-x-4">
-            {userEmail ? (
-              <>
-                <Link 
-                  href="/dashboard" 
-                  
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href="/profile"
-             
-                >
-                  Profile
-                </Link>
+            {user ? (
+              <div className="relative">
                 <button
-                 
-                  className="bg-indigo-600 text-white hover:bg-indigo-500 px-4 py-2 rounded-md text-sm font-medium"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="rounded-full text-white bg-blue-700 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm w-8 h-8 flex items-center justify-center"
                 >
-                  Logout
+                  {user.email[0].toUpperCase()}
                 </button>
-              </>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-4 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                      <li>
+                        <Link
+                          href="/dashboard"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Sign out
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
-                <Link 
-                  href="/login"
-                  
-                >
-                  Login
-                </Link>
+                <Link href="/login">Login</Link>
                 <Link
                   href="/register"
                   className="bg-indigo-600 text-white hover:bg-indigo-500 px-4 py-2 rounded-md text-sm font-medium"

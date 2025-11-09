@@ -1,7 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import UploadForm from '../../components/UploadForm';
 
 function formatFileSize(bytes) {
@@ -95,8 +93,6 @@ export default function DashboardPage() {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

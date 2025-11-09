@@ -1,4 +1,4 @@
-import { client } from "@/app/utils/dynamodbConfig";
+import { client } from "../../utils/dynamodbConfig";
 import { ScanCommand } from "@aws-sdk/client-dynamodb";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";

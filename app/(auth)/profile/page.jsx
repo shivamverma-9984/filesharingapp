@@ -1,29 +1,27 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { getUser } from "../../lib/auth/getUser";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+ let user;
+  useEffect( () => {
 
-  useEffect(() => {
-    // Get user email from cookie
-    const getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
+    const fetchUser = async () => {
+      user =await getUser();
+    if (user) {
+      setIsLoading(false);
+      setUserEmail(user.email);
+    } else {
+      router.push("/login");
+    }
     };
 
-    const email = getCookie('userEmail');
-    if (!email) {
-      router.push('/login');
-      return;
-    }
-
-    setUserEmail(decodeURIComponent(email));
-    setIsLoading(false);
-  }, [router]);
+    fetchUser();
+  }, [router,user]);
 
   if (isLoading) {
     return (
@@ -42,7 +40,9 @@ export default function ProfilePage() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Profile Information</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Profile Information
+            </h3>
             <div className="mt-5">
               <div className="rounded-md bg-gray-50 px-6 py-5">
                 <div className="grid grid-cols-1 gap-y-6">
@@ -60,7 +60,9 @@ export default function ProfilePage() {
         {/* Activity Section */}
         <div className="mt-8 bg-white shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Recent Activity</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Recent Activity
+            </h3>
             <div className="mt-5">
               <p className="text-sm text-gray-500">
                 Your recent file uploads and activities will appear here.

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { s3 } from "@/app/utils/s3config";
-import { client } from "@/app/utils/dynamodbConfig";
+import { s3 } from "../../utils/s3config";
+import { client } from "../../utils/dynamodbConfig";
 import { v4 as uuidv4 } from "uuid";
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
