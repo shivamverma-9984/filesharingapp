@@ -1,4 +1,4 @@
-import { client } from "@/app/utils/dynamodbConfig";
+import { client } from "../../utils/dynamodbConfig";
 import { PutItemCommand, ScanCommand } from "@aws-sdk/client-dynamodb";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
