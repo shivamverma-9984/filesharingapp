@@ -15,7 +15,7 @@ export default function DashboardPage() {
 
   const fetchUserFiles = async () => {
     try {
-      const response = await fetch('/api/files');
+      const response = await fetch('/api/files');   
       if (response.ok) {
         const data = await response.json();
         setFiles(data.files);
@@ -35,8 +35,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-
-      
       <main className="grow container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-8">
