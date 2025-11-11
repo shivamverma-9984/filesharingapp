@@ -1,25 +1,17 @@
-import { client } from "../../utils/dynamodbConfig";
 import { ScanCommand } from "@aws-sdk/client-dynamodb";
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
+import { client } from "../../../app/utils/dynamodbConfig";
+import { verifyToken } from "../../../app/helper/verifyToken";
+
 export async function GET() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  if (!token) return null;
+
+  let userEmail = verifyToken(token);
+  if (!userEmail) return null;
+
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) return null;
-    let data;
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      data = { id: decoded.id, email: decoded.email };
-    } catch (err) {
-      console.error("Invalid token:", err);
-      return null;
-    }
-
-    const userEmail = data.email;
-
-    console.log("userEmail->>>", userEmail);
 
     const command = new ScanCommand({
       TableName: process.env.AWS_S3_FILES_TABLE_NAME,
@@ -30,7 +22,6 @@ export async function GET() {
     });
 
     const result = await client.send(command);
-
     const files = result.Items
       ? result.Items.map((item) => ({
           id: item.id.S,
@@ -45,10 +36,8 @@ export async function GET() {
     return new Response(JSON.stringify({ files }), {
       status: 200,
     });
-  } catch (error) {
-    console.error("Error fetching files:", error);
-    return new Response(JSON.stringify({ error: "Error fetching files" }), {
-      status: 500,
-    });
+  } catch (err) {
+    console.error("Invalid token:", err);
+    return null;
   }
 }

@@ -6,6 +6,8 @@ import { client } from "../../utils/dynamodbConfig";
 import { v4 as uuidv4 } from "uuid";
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { verify } from "crypto";
+import { verifyToken } from "../../helper/verifyToken";
 
 export async function POST(request) {
   try {
@@ -15,16 +17,8 @@ const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
    
   if (!token) return null;
-   let data;
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    data = { id: decoded.id, email: decoded.email };
-  } catch (err) {
-    console.error('Invalid token:', err);
-    return null;
-  }
-  const userEmail= data.email;
-
+  let userEmail=verifyToken(token);
+ 
     const formData = await request.formData();
     const file = formData.get("file");
     if (!file) {
