@@ -48,7 +48,7 @@ export default function login() {
 
   return (
     <div className="flex justify-center mt-8 mb-6">
-      <div style={{ minWidth: "30%" }}>
+      <div style={{ minWidth: "90%" }}>
         <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-10  bg-white">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center">
