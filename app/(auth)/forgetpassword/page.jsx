@@ -1,42 +1,46 @@
 "use client";
+import Link from "next/link";
+import { useAuth } from "../../_context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-export default function register() {
+import toast from 'react-hot-toast';
+
+
+export default function ForgetPassword() {
   const router = useRouter();
 
   const [formdata, setFormdata] = useState({
-    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/forgetpassword', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formdata),
       });
-
-      const data = await res.json();
-      console.log("Registration response:", data);
-      if (res.ok) {
-        toast.success(data.message);
-        setFormdata({ name: "", email: "", password: "" });
-        router.push("/login");
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Password updated successfully!");
+        setFormdata({ email: "", password: "", confirmPassword: "" });
+        
+        router.push('/login');
       } else {
         toast.error(data.message);
       }
     } catch (err) {
-      toast.error(err.message);
+      console.error(err);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -46,10 +50,10 @@ export default function register() {
         <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-10  bg-white">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center">
-              <Image src="/next.svg" height={100} width={100} alt="" />
+              <Image src="/next.svg" height={100} width={100} />
             </div>
             <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Create a new account
+              Forget Password
             </h2>
           </div>
 
@@ -60,26 +64,6 @@ export default function register() {
               method="POST"
               onSubmit={handleSubmit}
             >
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Name
-                </label>
-                <div className="mt-0.5">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.name}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
               <div>
                 <label
                   htmlFor="email"
@@ -123,13 +107,34 @@ export default function register() {
                   />
                 </div>
               </div>
-
+              <div>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Confirmed Password
+                  </label>
+                </div>
+                <div className="mt-0.5">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
+                    value={formdata.confirmPassword}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
               <div>
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Register
+                  Submit
                 </button>
               </div>
             </form>
@@ -138,11 +143,11 @@ export default function register() {
               Already have an account?{" "}
               <span
                 onClick={() => {
-                  router.push("/login");
+                  router.push("/register");
                 }}
                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
               >
-                Sign In
+                login
               </span>
             </p>
           </div>
