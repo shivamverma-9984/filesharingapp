@@ -3,6 +3,8 @@ import { useAuth } from "../../_context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from 'react-hot-toast';
+
 
 export default function login() {
   const router = useRouter();
@@ -13,7 +15,7 @@ export default function login() {
     password: "",
   });
 
-  const [status, setStatus] = useState("");
+  // const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
@@ -21,12 +23,10 @@ export default function login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Submitting...");
-
     try {
       const data = await login(formdata);
       if (data.success) {
-        setStatus("Login successful!");
+        toast.success("Login successful!");
         setFormdata({ email: "", password: "" });
         
         const params = new URLSearchParams(window.location.search);
@@ -36,11 +36,12 @@ export default function login() {
           router.push(returnTo);
         }, 100);
       } else {
-        setStatus(data.message);
+        // setStatus(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
       console.error(err);
-      setStatus("Something went wrong!");
+      toast.error("Something went wrong!");
     }
   };
 
@@ -116,10 +117,6 @@ export default function login() {
                 </button>
               </div>
             </form>
-
-            {status && (
-              <p className="mt-3 bg-green-100 text-green-900">{status}</p>
-            )}
 
             <p className="mt-4 text-center text-sm text-gray-500">
               Already have an account?{" "}

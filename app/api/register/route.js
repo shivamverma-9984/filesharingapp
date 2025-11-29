@@ -12,21 +12,25 @@ export async function POST(request) {
     });
   }
 
-  const userExist = new ScanCommand({
-    TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
-    FilterExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": { S: email }
-    },
-    Limit: 1
-  });
+  const normalizedEmail = String(email).trim().toLowerCase();
+
+    const userExist = new ScanCommand({
+      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      ProjectionExpression: "email",
+    });
   try {
     const existingUser = await client.send(userExist);
-
-    if (existingUser && existingUser.Items && existingUser?.Items?.length > 0) {
-      return new NextResponse(JSON.stringify({ message: "User already exist" }), {
-        status: 409,
+     console.log("Existing users:", existingUser);
+    if (existingUser.Items.length > 0) {
+      const exists = existingUser.Items.some((it) => {
+        const stored = it?.email?.S || "";
+        return String(stored).trim().toLowerCase() === normalizedEmail;
       });
+      if (exists) {
+        return new NextResponse(JSON.stringify({ message: "User already exist" }), {
+          status: 409,
+        });
+      }
     }
 
     const command = new PutItemCommand({
@@ -34,7 +38,7 @@ export async function POST(request) {
       Item: {
         id: { S: uuidv4() },
         name: { S: name },
-        email: { S: email },
+        email: { S: normalizedEmail },
         password: { S: password },
       },
     });

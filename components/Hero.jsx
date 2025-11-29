@@ -1,4 +1,3 @@
-
 'use client';
 import { useAuth } from "../app/_context/AuthContext";
 import { Upload, ArrowRight } from "lucide-react";
@@ -18,46 +17,51 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-hero py-20 md:py-32">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div className="animate-fade-in-up space-y-6">
-            <h1 className="text-4xl font-bold leading-tight text-primary-foreground md:text-5xl lg:text-6xl">
-              Share Files
-              <br />
-              <span className="text-secondary-foreground">
+    <section className="relative overflow-hidden py-20">
+      {/* Decorative glow */}
+      <div className="absolute inset-0"></div>
+
+      <div className="container relative z-10 mx-auto px-6">
+        <div className="grid gap-16 lg:grid-cols-2 items-center">
+          {/* Text content */}
+          <div className="space-y-8 animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Share Files <br />
+              <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
                 Instantly & Securely
               </span>
             </h1>
-            <p className="text-lg text-primary-foreground/90 md:text-xl max-w-xl">
+            <p className="text-lg md:text-xl max-w-xl">
               Send files of any size to anyone, anywhere. No signup required.
               Fast, secure, and simple file sharing for everyone.
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleClick}
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold bg-background text-primary rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-primary/50"
+                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
               >
-                <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background transition-transform duration-300 group-hover:translate-x-full"></div>
-                <Upload className="relative z-10 h-5 w-5" />
-                <span className="relative z-10">Start Sharing</span>
-                <ArrowRight className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <Upload className="h-5 w-5" />
+                <span>Start Sharing</span>
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
-              <button className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold text-primary-foreground rounded-xl border-2 border-primary-foreground/30 overflow-hidden transition-all duration-300 hover:scale-105">
-                <div className="absolute inset-0 bg-primary-foreground/0 transition-all duration-300 group-hover:bg-primary-foreground/10"></div>
-                <span className="relative z-10">Learn More</span>
+
+              <button className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl border border-gray-500/40 transition-all duration-300 hover:bg-gray-800/50 hover:scale-105">
+                <span>Learn More</span>
               </button>
             </div>
           </div>
+
+          {/* Hero image */}
           <div className="relative animate-float">
-            <div className="absolute -inset-4 bg-primary-glow/20 blur-3xl rounded-full"></div>
+            <div className="absolute -inset-6 bg-gradient-to-r from-indigo-500/20 to-pink-500/20 blur-3xl rounded-full"></div>
             <Image
-            height={100}
-            width={100}
+              height={400}
+              width={400}
               src="/download.png"
               alt="File sharing illustration"
-              className="relative w-full h-auto rounded-2xl shadow-medium"
+              className="relative w-full h-auto rounded-2xl shadow-2xl border border-gray-700/30"
             />
           </div>
         </div>

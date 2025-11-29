@@ -50,10 +50,10 @@ export default function DashboardPage() {
 
           {loading ? (
             <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <div className="animate-spin rounded-full h-8 w-8 "></div>
             </div>
           ) : files.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-lg shadow-sm">
+            <div className="text-center py-12  rounded-lg shadow-sm">
               <p className="text-gray-500">No files uploaded yet.</p>
             </div>
           ) : (

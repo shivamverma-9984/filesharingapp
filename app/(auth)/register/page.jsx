@@ -2,53 +2,43 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import toast from "react-hot-toast";
 export default function register() {
   const router = useRouter();
 
-  const [formdata,setFormdata]=useState({
-    name:"",
-    email:"",
-    password:"",
-  
+  const [formdata, setFormdata] = useState({
+    name: "",
+    email: "",
+    password: "",
   });
 
-const [status, setStatus] = useState("");
+  const handleChange = (e) => {
+    setFormdata({ ...formdata, [e.target.name]: e.target.value });
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-
-
-  const handleChange=(e)=>{
-    setFormdata({...formdata,[e.target.name]:e.target.value});
-  }
-
-
-
-  const handleSubmit=async (e)=>{
-     e.preventDefault();
-    setStatus("Submitting...");
-  
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formdata),
       });
-  
+
       const data = await res.json();
+      console.log("Registration response:", data);
       if (res.ok) {
-        console.log("Registration successful:", data);
-        setStatus(data.message);
+        toast.success(data.message);
         setFormdata({ name: "", email: "", password: "" });
+        router.push("/login");
       } else {
-        setStatus(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
-      console.error(err);
-      setStatus("Something went wrong!");
+      toast.error(err.message);
     }
-  }
-
+  };
 
   return (
     <div className="flex justify-center mt-8 mb-6">
@@ -64,7 +54,12 @@ const [status, setStatus] = useState("");
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-4" action="#" method="POST" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4"
+              action="#"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <div>
                 <label
                   htmlFor="name"
@@ -138,8 +133,6 @@ const [status, setStatus] = useState("");
                 </button>
               </div>
             </form>
-
-             {status && <p className="mt-3 bg-green-100 text-green-900">{status}</p>}
 
             <p className="mt-4 text-center text-sm text-gray-500">
               Already have an account?{" "}

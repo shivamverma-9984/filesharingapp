@@ -1,27 +1,17 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function UploadForm({ onUploadSuccess }) {
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState('');
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // useEffect(() => {
-  //   const token = document.cookie.includes('token=');
-  //   const email = document.cookie.includes('userEmail=');
-  //   setIsAuthenticated(token && email);
-  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return;
-
- 
     setUploading(true);
-    setError('');
 
     try {
       const formData = new FormData();
@@ -42,14 +32,14 @@ export default function UploadForm({ onUploadSuccess }) {
         }
         throw new Error(data.error || 'Upload failed');
       }
-
+      toast.success('File uploaded successfully!');
       setFile(null);
       e.target.reset();
       if (onUploadSuccess) {
         onUploadSuccess();
       }
     } catch (err) {
-      setError(err.message);
+      toast.error(err.message);
     } finally {
       setUploading(false);
     }
@@ -84,9 +74,6 @@ export default function UploadForm({ onUploadSuccess }) {
           </button>
         </div>
       </div>
-      {error && (
-        <p className="text-red-500 text-sm mt-2">{error}</p>
-      )}
     </form>
   );
 }
