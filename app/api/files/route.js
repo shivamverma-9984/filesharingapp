@@ -33,8 +33,6 @@ export async function GET() {
         }))
       : [];
 
-      console.log("FILES:", files);
-
     return new Response(JSON.stringify({ files }), {
       status: 200,
     });

@@ -34,7 +34,7 @@ const cookieStore = await cookies();
       ContentType: file.type || "application/octet-stream",
     });
 
-    const data=await s3.send(command);
+    await s3.send(command);
 
     const fileUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION || "ap-south-1"}.amazonaws.com/${uniqueFileName}`;
 
