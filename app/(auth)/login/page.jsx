@@ -1,10 +1,12 @@
 "use client";
+import { useAuth } from "../../_context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function login() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [formdata, setFormdata] = useState({
     email: "",
@@ -22,25 +24,14 @@ export default function login() {
     setStatus("Submitting...");
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formdata),
-        credentials: 'include',
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        console.log("Login successful:", data);
+      const data = await login(formdata);
+      if (data.success) {
         setStatus("Login successful!");
-        router.push('/dashboard');
         setFormdata({ email: "", password: "" });
         
-        // Get the return URL from query parameters or default to dashboard
         const params = new URLSearchParams(window.location.search);
         const returnTo = params.get('from') || '/dashboard';
         
-        // Wait a bit for cookies to be set
         setTimeout(() => {
           router.push(returnTo);
         }, 100);

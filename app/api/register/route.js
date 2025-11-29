@@ -13,7 +13,7 @@ export async function POST(request) {
   }
 
   const userExist = new ScanCommand({
-    TableName: process.env.AWS_S3_TABLE_NAME,
+    TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
     FilterExpression: "email = :email",
     ExpressionAttributeValues: {
       ":email": { S: email }
@@ -30,7 +30,7 @@ export async function POST(request) {
     }
 
     const command = new PutItemCommand({
-      TableName: process.env.AWS_S3_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
       Item: {
         id: { S: uuidv4() },
         name: { S: name },

@@ -16,8 +16,19 @@ export function AuthProvider({ children }) {
     fetchUser();
   }, []);
 
-  const login = async () => {
-    await fetchUser();
+  const login = async (formdata) => {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata),
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+        return { success: true, ...data };
+      }
+      return { success: false, ...data };
   };
 
   const logout = async () => {

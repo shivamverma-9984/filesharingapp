@@ -5,8 +5,6 @@ import { s3 } from "../../utils/s3config";
 import { client } from "../../utils/dynamodbConfig";
 import { v4 as uuidv4 } from "uuid";
 import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
-import { verify } from "crypto";
 import { verifyToken } from "../../helper/verifyToken";
 
 export async function POST(request) {
@@ -36,14 +34,14 @@ const cookieStore = await cookies();
       ContentType: file.type || "application/octet-stream",
     });
 
-    await s3.send(command);
+    const data=await s3.send(command);
 
     const fileUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION || "ap-south-1"}.amazonaws.com/${uniqueFileName}`;
 
     // Validate table name
-    const tableName = process.env.AWS_S3_FILES_TABLE_NAME;
+    const tableName = process.env.AWS_DYNAMODB_TABLE_NAME;
     if (!tableName) {
-      console.error("Missing AWS_S3_FILES_TABLE_NAME environment variable");
+      console.error("Missing AWS_S3_BUCKET_NAME environment variable");
       return NextResponse.json(
         { error: "Server configuration error: Missing table name" },
         { status: 500 }

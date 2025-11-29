@@ -14,7 +14,7 @@ export async function GET() {
   try {
 
     const command = new ScanCommand({
-      TableName: process.env.AWS_S3_FILES_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
       FilterExpression: "userEmail = :email",
       ExpressionAttributeValues: {
         ":email": { S: userEmail },
@@ -32,6 +32,8 @@ export async function GET() {
           userEmail: item.userEmail.S,
         }))
       : [];
+
+      console.log("FILES:", files);
 
     return new Response(JSON.stringify({ files }), {
       status: 200,

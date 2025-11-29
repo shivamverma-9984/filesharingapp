@@ -2,6 +2,7 @@
 'use client';
 import { useAuth } from "../app/_context/AuthContext";
 import { Upload, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export const Hero = () => {
@@ -51,7 +52,9 @@ export const Hero = () => {
           </div>
           <div className="relative animate-float">
             <div className="absolute -inset-4 bg-primary-glow/20 blur-3xl rounded-full"></div>
-            <img
+            <Image
+            height={100}
+            width={100}
               src="/download.png"
               alt="File sharing illustration"
               className="relative w-full h-auto rounded-2xl shadow-medium"
