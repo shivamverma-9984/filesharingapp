@@ -20,7 +20,7 @@ export default function Header() {
     <header className="bg-white shadow-sm">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-indigo-600">
+          <Link href="/" className="text-2xl text-center font-bold bg-gradient-to-r  from-indigo-700 to-pink-500 bg-clip-text text-transparent">
             DropShare
           </Link>
           <div className="flex items-center space-x-4">
@@ -60,7 +60,7 @@ export default function Header() {
                 <Link href="/login">Login</Link>
                 <Link
                   href="/register"
-                  className="bg-indigo-600 text-white hover:bg-indigo-500 px-4 py-2 rounded-md text-sm font-medium"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-1  rounded-md text-white bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
                 >
                   Sign Up
                 </Link>

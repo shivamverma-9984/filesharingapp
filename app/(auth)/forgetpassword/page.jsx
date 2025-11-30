@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useAuth } from "../../_context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from 'react-hot-toast';
-
+import toast from "react-hot-toast";
 
 export default function ForgetPassword() {
   const router = useRouter();
@@ -15,6 +13,7 @@ export default function ForgetPassword() {
     password: "",
     confirmPassword: "",
   });
+
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
@@ -22,10 +21,10 @@ export default function ForgetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/forgetpassword', {
-        method: 'POST',
+      const response = await fetch("/api/forgetpassword", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formdata),
       });
@@ -33,8 +32,7 @@ export default function ForgetPassword() {
       if (response.ok) {
         toast.success("Password updated successfully!");
         setFormdata({ email: "", password: "", confirmPassword: "" });
-        
-        router.push('/login');
+        router.push("/login");
       } else {
         toast.error(data.message);
       }
@@ -45,112 +43,99 @@ export default function ForgetPassword() {
   };
 
   return (
-    <div className="flex justify-center mt-8 mb-6">
-      <div style={{ minWidth: "70%" }}>
-        <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-10  bg-white">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <div className="flex justify-center">
-              <Image src="/next.svg" height={100} width={100} />
-            </div>
-            <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Forget Password
-            </h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md">
+        <div className="bg-white shadow-xl rounded-xl px-8 py-10">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <Image src="/next.svg" height={80} width={80} alt="Logo" />
           </div>
 
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form
-              className="space-y-3"
-              action="#"
-              method="POST"
-              onSubmit={handleSubmit}
-            >
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email address
-                </label>
-                <div className="mt-0.5">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.email}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+          {/* Heading */}
+          <h2 className="text-center text-2xl font-bold bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+            Reset Your Password
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-500">
+            Enter your email and new password below
+          </p>
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Password
-                  </label>
-                </div>
-                <div className="mt-0.5">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.password}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Confirmed Password
-                  </label>
-                </div>
-                <div className="mt-0.5">
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-
-            <p className="mt-4 text-center text-sm text-gray-500">
-              Already have an account?{" "}
-              <span
-                onClick={() => {
-                  router.push("/register");
-                }}
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+          {/* Form */}
+          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
               >
-                login
-              </span>
-            </p>
-          </div>
+                Email address
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formdata.email}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                New Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formdata.password}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                required
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formdata.confirmPassword}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-pink-500 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+            >
+              Submit
+            </button>
+          </form>
+
+          {/* Footer */}
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Remembered your password?{" "}
+            <span
+              onClick={() => router.push("/login")}
+              className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer"
+            >
+              Login
+            </span>
+          </p>
         </div>
       </div>
     </div>

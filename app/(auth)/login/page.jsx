@@ -4,10 +4,9 @@ import { useAuth } from "../../_context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
-
-export default function login() {
+export default function Login() {
   const router = useRouter();
   const { login } = useAuth();
 
@@ -15,8 +14,6 @@ export default function login() {
     email: "",
     password: "",
   });
-
-  // const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
@@ -29,15 +26,14 @@ export default function login() {
       if (data.success) {
         toast.success("Login successful!");
         setFormdata({ email: "", password: "" });
-        
+
         const params = new URLSearchParams(window.location.search);
-        const returnTo = params.get('from') || '/dashboard';
-        
+        const returnTo = params.get("from") || "/dashboard";
+
         setTimeout(() => {
           router.push(returnTo);
         }, 100);
       } else {
-        // setStatus(data.message);
         toast.error(data.message);
       }
     } catch (err) {
@@ -47,91 +43,89 @@ export default function login() {
   };
 
   return (
-    <div className="flex justify-center mt-8 mb-6">
-      <div style={{ minWidth: "70%" }}>
-        <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-10  bg-white">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <div className="flex justify-center">
-              <Image src="/next.svg" height={100} width={100} />
-            </div>
-            <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              sign In with credentials
-            </h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md">
+        <div className="bg-white shadow-xl rounded-xl px-8 py-10">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <Image src="/next.svg" height={80} width={80} alt="Logo" />
           </div>
 
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form
-              className="space-y-3"
-              action="#"
-              method="POST"
-              onSubmit={handleSubmit}
-            >
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email address
-                </label>
-                <div className="mt-0.5">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.email}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+          {/* Heading */}
+          <h2 className="text-2xl text-center font-bold bg-gradient-to-r  from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-500">
+            Enter your credentials below
+          </p>
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Password
-                  </label>
-                </div>
-                <div className="mt-0.5">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="px-2 block w-full rounded-sm py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset sm:text-sm sm:leading-6"
-                    value={formdata.password}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-              <Link href="/forgetpassword" className="flex justify-end -mt-1 mb-1 text-sm hover:text-indigo-600">Forget Password</Link>
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-sm bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Sign In
-                </button>
-              </div>
-            </form>
-
-            <p className="mt-4 text-center text-sm text-gray-500">
-              Already have an account?{" "}
-              <span
-                onClick={() => {
-                  router.push("/register");
-                }}
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+          {/* Form */}
+          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
               >
-                Sign up
-              </span>
-            </p>
-          </div>
+                Email address
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formdata.email}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formdata.password}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <Link
+                href="/forgetpassword"
+                className="text-sm text-indigo-600 hover:text-indigo-500"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-2 text-lg font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+            >
+              Sign In
+            </button>
+          </form>
+
+          {/* Footer */}
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Don’t have an account?{" "}
+            <span
+              onClick={() => router.push("/register")}
+              className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer"
+            >
+              Sign up
+            </span>
+          </p>
         </div>
       </div>
     </div>
