@@ -17,7 +17,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative overflow-hidden py-20">
+    <section className="relative overflow-hidden py-20 ">
       {/* Decorative glow */}
       <div className="absolute inset-0"></div>
 
@@ -25,9 +25,9 @@ export const Hero = () => {
         <div className="grid gap-16 lg:grid-cols-2 items-center">
           {/* Text content */}
           <div className="space-y-8 animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Share Files <br />
-              <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-indigo-500 bg-clip-text text-transparent">
                 Instantly & Securely
               </span>
             </h1>
@@ -40,14 +40,14 @@ export const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleClick}
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl text-white bg-gradient-to-r bg-indigo-500 transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
               >
                 <Upload className="h-5 w-5" />
                 <span>Start Sharing</span>
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
 
-              <button className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl border border-gray-500/40 transition-all duration-300 hover:bg-gray-800/50 hover:scale-105">
+              <button className="group hover:text-white relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold rounded-xl border border-gray-500/40 transition-all duration-300 hover:bg-gray-800/50 hover:scale-105">
                 <span>Learn More</span>
               </button>
             </div>

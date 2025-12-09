@@ -26,7 +26,7 @@ const steps = [
 
 export const HowItWorks = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-gray-100">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-20">

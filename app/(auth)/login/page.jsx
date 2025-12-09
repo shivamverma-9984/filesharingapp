@@ -52,7 +52,7 @@ export default function Login() {
           </div>
 
           {/* Heading */}
-          <h2 className="text-2xl text-center font-bold bg-gradient-to-r  from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl text-center font-bold bg-indigo-500 bg-clip-text text-transparent">
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-500">
@@ -110,7 +110,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-2 text-lg font-semibold rounded-xl text-white bg-gradient-to-r from-indigo-500 to-pink-500 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-2 text-lg font-semibold rounded-xl text-white bg-indigo-500 shadow-lg transition-all duration-300 hover:scale-105"
             >
               Sign In
             </button>

@@ -5,6 +5,9 @@ import Footer from "../components/Footer";
 import { AuthProvider } from "./_context/AuthContext";
 import { Toaster } from 'react-hot-toast';
 
+
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased "`}
       >
         <AuthProvider>
           <Header />
