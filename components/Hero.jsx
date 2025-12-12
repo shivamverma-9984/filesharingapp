@@ -99,9 +99,9 @@ export const Hero = () => {
       <div className="container relative z-10 mx-auto px-6  flex flex-col items-center">
         {/* Centered content */}
         <div className="flex flex-col items-center text-center space-y-8 animate-fade-in-up">
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
+          <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold leading-tight">
             Share Files <br />
-            <span className="bg-indigo-500 bg-clip-text text-transparent">
+            <span className=" bg-indigo-500 bg-clip-text text-transparent">
               Instantly & Securely
             </span>
           </h1>
@@ -112,17 +112,17 @@ export const Hero = () => {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <button
               onClick={handleClick}
-              className="group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 text-lg font-semibold rounded-xl text-white bg-gradient-to-r bg-indigo-500 transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-2.5 md:py-3.5 text-lg font-semibold rounded-xl text-white bg-gradient-to-r bg-indigo-500 transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
             >
               <Upload className="h-5 w-5" />
               <span>Start Sharing</span>
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </button>
 
-            <button className="group hover:text-white relative inline-flex items-center justify-center gap-2 px-8 py-3.5 text-lg font-semibold rounded-xl border border-gray-500/40 transition-all duration-300 hover:bg-gray-800/50 hover:scale-105">
+            <button className="group hover:text-white relative inline-flex items-center justify-center gap-2 px-8 py-2 md:py-3.5 text-lg font-semibold rounded-xl border border-gray-500/40 transition-all duration-300 hover:bg-gray-800/50 hover:scale-105">
               <span>Learn More</span>
             </button>
           </div>

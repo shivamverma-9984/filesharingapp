@@ -30,7 +30,7 @@ export const HowItWorks = () => {
       <div className="container mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl font-extrabold text-blue-600  mb-4">
+          <h2 className="text-4xl font-bold text-blue-600  mb-4">
             How It Works
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
