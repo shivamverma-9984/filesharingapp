@@ -29,6 +29,13 @@ export default function DashboardPage() {
     }
   };
 
+  const handleDownload = (fileUrl, filename) => {
+    const urlParts = fileUrl.split('/');
+    const fileKey = urlParts.slice(3).join('/');
+    const downloadUrl = `/api/download?key=${encodeURIComponent(fileKey)}&filename=${encodeURIComponent(filename)}`;
+    window.open(downloadUrl, '_blank');
+  };
+
   useEffect(() => {
     fetchUserFiles();
   }, []);
@@ -74,7 +81,13 @@ export default function DashboardPage() {
                         Size: {formatFileSize(parseInt(file.size))}
                       </p>
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-4 flex justify-end gap-2">
+                      <button
+                        onClick={() => handleDownload(file.url, file.filename)}
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-green-600 bg-green-50 rounded-md hover:bg-green-100 cursor-pointer"
+                      >
+                        Download
+                      </button>
                       <a
                         href={file.url}
                         target="_blank"
