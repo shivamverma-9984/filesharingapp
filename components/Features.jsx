@@ -61,7 +61,7 @@ export const Features = () => {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg  transition-shadow duration-300">
                   <div class={`w-14 h-14 ${feature.bgColor} rounded-lg flex items-center justify-center mb-6`}>
                     <Icon className="h-8 w-8 text-white" />{" "}
                   </div>
