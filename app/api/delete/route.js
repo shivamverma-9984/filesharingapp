@@ -2,7 +2,7 @@ import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { cookies } from "next/headers";
 import { client } from "../../../app/utils/dynamodbConfig";
-import { s3 } from "../../../app/utils/s3Config";
+import { s3 } from "../../utils/s3config";
 import { verifyToken } from "../../../app/helper/verifyToken";
 
 export async function DELETE(request) {
