@@ -36,6 +36,33 @@ export default function DashboardPage() {
     window.open(downloadUrl, '_blank');
   };
 
+  const handleDelete = async (fileId, fileUrl) => {
+    if (!confirm('Are you sure you want to delete this file?')) return;
+    
+    try {
+      const response = await fetch('/api/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileId, fileUrl }),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        setFiles(files.filter(file => file.id !== fileId));
+        alert('File deleted successfully');
+      } else {
+        console.error('Delete failed:', result);
+        alert(`Failed to delete file: ${result.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      alert('Failed to delete file: Network error');
+    }
+  };
+
   useEffect(() => {
     fetchUserFiles();
   }, []);
@@ -88,14 +115,12 @@ export default function DashboardPage() {
                       >
                         Download
                       </button>
-                      <a
-                        href={file.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100"
+                      <button
+                        onClick={() => handleDelete(file.id, file.url)}
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 cursor-pointer"
                       >
-                        View File
-                      </a>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
