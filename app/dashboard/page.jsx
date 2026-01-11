@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import UploadForm from '../../components/UploadForm';
+import toast from 'react-hot-toast';
 
 function formatFileSize(bytes) {
   if (bytes < 1024) return bytes + ' B';
@@ -52,20 +53,20 @@ export default function DashboardPage() {
       
       if (response.ok) {
         setFiles(files.filter(file => file.id !== fileId));
-        alert('File deleted successfully');
+        toast.success('File deleted successfully');
       } else {
         console.error('Delete failed:', result);
-        alert(`Failed to delete file: ${result.error || 'Unknown error'}`);
+        toast.error(`Failed to delete file: ${result.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Delete error:', error);
-      alert('Failed to delete file: Network error');
+      toast.error('Failed to delete file: Network error');
     }
   };
 
   useEffect(() => {
     fetchUserFiles();
-  }, []);
+  }, [files]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">

@@ -39,9 +39,9 @@ const cookieStore = await cookies();
     const fileUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION || "ap-south-1"}.amazonaws.com/${uniqueFileName}`;
 
     // Validate table name
-    const tableName = process.env.AWS_DYNAMODB_TABLE_NAME;
+    const tableName = process.env.AWS_DYNAMODB_DATA_TABLE_NAME;
     if (!tableName) {
-      console.error("Missing AWS_S3_BUCKET_NAME environment variable");
+      console.error("Missing AWS_DYNAMODB_DATA_TABLE_NAME environment variable");
       return NextResponse.json(
         { error: "Server configuration error: Missing table name" },
         { status: 500 }

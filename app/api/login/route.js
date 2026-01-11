@@ -17,7 +17,7 @@ export async function POST(request) {
 
     // Check if user exists with given email and password
     const command = new ScanCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_USER_TABLE_NAME,
       FilterExpression: "email = :email AND password = :password",
       ExpressionAttributeValues: {
         ":email": { S: email },

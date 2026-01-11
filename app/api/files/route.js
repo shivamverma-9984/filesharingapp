@@ -14,7 +14,7 @@ export async function GET() {
   try {
 
     const command = new ScanCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_DATA_TABLE_NAME,
       FilterExpression: "userEmail = :email",
       ExpressionAttributeValues: {
         ":email": { S: userEmail },

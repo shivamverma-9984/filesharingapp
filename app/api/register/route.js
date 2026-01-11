@@ -15,7 +15,7 @@ export async function POST(request) {
   const normalizedEmail = String(email).trim().toLowerCase();
 
     const userExist = new ScanCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_USER_TABLE_NAME,
       ProjectionExpression: "email",
     });
   try {
@@ -34,7 +34,7 @@ export async function POST(request) {
     }
 
     const command = new PutItemCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_USER_TABLE_NAME,
       Item: {
         id: { S: uuidv4() },
         name: { S: name },

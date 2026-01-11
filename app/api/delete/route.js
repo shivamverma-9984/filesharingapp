@@ -41,7 +41,7 @@ export async function DELETE(request) {
 
     // Delete from DynamoDB
     const deleteDynamoCommand = new DeleteItemCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_DATA_TABLE_NAME,
       Key: {
         id: { S: fileId },
       },
