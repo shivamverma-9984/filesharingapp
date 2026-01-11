@@ -38,7 +38,7 @@ export default function Header() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between items-center">
           <Link href="/" className="text-2xl text-center font-bold bg-indigo-500 bg-clip-text text-transparent">
-            DropShare
+            Sharely
           </Link>
           <div className="flex items-center space-x-4">
             {user ? (

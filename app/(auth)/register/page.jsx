@@ -1,8 +1,10 @@
 "use client";
+import { Mail, User, Lock } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Register() {
   const router = useRouter();
@@ -12,6 +14,7 @@ export default function Register() {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
@@ -19,6 +22,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await fetch("/api/register", {
@@ -40,104 +44,77 @@ export default function Register() {
     } catch (err) {
       toast.error(err.message);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md">
-        <div className="bg-white shadow-xl rounded-xl px-8 py-10">
-          {/* Logo */}
-          <div className="flex justify-center mb-6">
-            <Image src="/next.svg" height={80} width={80} alt="Logo" />
-          </div>
-
-          {/* Heading */}
-          <h2 className="text-2xl text-center font-bold bg-indigo-500 bg-clip-text text-transparent">
-            Create a new account
+    <div className="flex justify-center items-center h-screen ">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white text-gray-500 max-w-[340px] w-full mx-4 md:p-6 p-4 py-8 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10"
+      >
+       <div className="flex flex-col items-center gap-1 mb-4">
+          <h2 className="text-2xl font-bold text-center text-gray-800">
+            Create Account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-500">
-            Fill in your details below to get started
-          </p>
-
-          {/* Form */}
-          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                autoComplete="name"
-                required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                value={formdata.name}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                value={formdata.email}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                value={formdata.password}
-                onChange={handleChange}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-2 text-lg font-semibold rounded-xl text-white bg-indigo-500 shadow-lg transition-all duration-300 hover:scale-105"
-            >
-              Register
-            </button>
-          </form>
-
-          {/* Footer */}
-          <p className="mt-6 text-center text-sm text-gray-600">
-            Already have an account?{" "}
-            <span
-              onClick={() => router.push("/login")}
-              className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer"
-            >
-              Sign In
-            </span>
-          </p>
+          <p>Create a new account to get started</p>
         </div>
-      </div>
+        <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
+          <User size={18} />
+          <input
+            className="w-full outline-none bg-transparent py-2.5"
+            type="name"
+            name="name"
+            value={formdata.name}
+            onChange={handleChange}
+            placeholder="Name"
+            required
+          />
+        </div>
+        <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
+          <Mail size={18} />
+          <input
+            className="w-full outline-none bg-transparent py-2.5"
+            type="email"
+            name="email"
+            value={formdata.email}
+            onChange={handleChange}
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div className="flex items-center mt-2 mb-4 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
+          <Lock size={18} />
+          <input
+            className="w-full outline-none bg-transparent py-2.5"
+            type="password"
+            name="password"
+            value={formdata.password}
+            onChange={handleChange}
+            placeholder="Password"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full mb-3 bg-indigo-500 hover:bg-indigo-600/90 transition py-2.5 rounded text-white font-medium"
+        >
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+        <p className="text-center">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-blue-500 underline"
+          >
+            Log In{" "}
+          </Link>
+        </p>
+      </form>
     </div>
   );
 }
