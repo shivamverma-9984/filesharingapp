@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -15,6 +15,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
@@ -45,7 +46,7 @@ export default function Login() {
     <div className="flex justify-center items-center min-h-screen pt-20 pb-12 bg-gray-50 dark:bg-gray-900 px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 max-w-[400px] w-full p-8 text-left text-sm rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700"
+        className="bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 max-w-[400px] w-full p-8 text-left text-sm shadow-xl border border-gray-100 dark:border-gray-700"
       >
         <div className="flex flex-col items-center gap-2 mb-8">
           <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-full mb-2">
@@ -60,7 +61,7 @@ export default function Login() {
         </div>
 
         <div className="space-y-4">
-          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
             <Mail
               size={18}
               className="text-gray-400 group-focus-within:text-indigo-500"
@@ -76,20 +77,27 @@ export default function Login() {
             />
           </div>
 
-          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50  px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
             <Lock
               size={18}
               className="text-gray-400 group-focus-within:text-indigo-500"
             />
             <input
               className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formdata.password}
               onChange={handleChange}
               placeholder="Password"
               required
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-gray-400 hover:text-indigo-500 focus:outline-none"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
         </div>
 
@@ -115,7 +123,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -145,7 +153,7 @@ export default function Login() {
           )}
         </button>
 
-        <p className="text-center mt-6 text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-center mt-4 text-sm text-gray-500 dark:text-gray-400">
           Don't have an account?{" "}
           <Link
             href="/register"
