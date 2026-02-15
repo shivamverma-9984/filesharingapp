@@ -29,13 +29,7 @@ export default function Login() {
       if (data.success) {
         toast.success("Login successful!");
         setFormdata({ email: "", password: "" });
-
-        const params = new URLSearchParams(window.location.search);
-        const returnTo = params.get("from") || "/dashboard";
-
-        setTimeout(() => {
-          router.push(returnTo);
-        }, 100);
+        router.push('/dashboard');
       } else {
         toast.error(data.message);
       }

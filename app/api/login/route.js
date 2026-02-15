@@ -48,21 +48,17 @@ export async function POST(request) {
 
 
     const token=  jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '24h' });
-     console.log("token",token);
      
     // Set cookies for authentication
-    // Set to expire in 24 hours
     const cookieOptions = {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24, // 24 hours
-    
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
+      path: '/'
     };
 
-    // // Set authentication cookies
     response.cookies.set('token', token, cookieOptions);
-    // response.cookies.set('userEmail', user.email, cookieOptions);
 
     return response;
 
