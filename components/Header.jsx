@@ -1,8 +1,8 @@
-'use client';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState, useRef } from 'react';
-import { useAuth } from '../app/_context/AuthContext';
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
+import { useAuth } from "../app/_context/AuthContext";
 
 export default function Header() {
   const router = useRouter();
@@ -10,10 +10,9 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-
   const handleLogout = async () => {
     await logout();
-    router.push('/');
+    router.push("/");
     setDropdownOpen(false);
   };
 
@@ -25,19 +24,22 @@ export default function Header() {
     };
 
     if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
 
   return (
-    <header className="shadow-sm">
+    <header className="shadow-sm  fixed w-full z-200 backdrop-blur-sm bg-white/80 dark:bg-gray-900/80">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between items-center">
-          <Link href="/" className="text-2xl text-center font-bold bg-indigo-500 bg-clip-text text-transparent">
+          <Link
+            href="/"
+            className="text-2xl text-center font-bold bg-indigo-500 bg-clip-text text-transparent"
+          >
             Sharely
           </Link>
           <div className="flex items-center space-x-4">
@@ -78,7 +80,7 @@ export default function Header() {
                 <Link href="/login">Login</Link>
                 <Link
                   href="/register"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-1  rounded-md text-white bg-gradient-to-r pb-2 bg-indigo-500 shadow-lg transition-all duration-300 hover:scale-105 "
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-1  rounded-md text-white bg-gradient-to-r pb-2 bg-indigo-500 shadow-lg transition-all duration-300 hover:scale-105 "
                 >
                   Sign Up
                 </Link>

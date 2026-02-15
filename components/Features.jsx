@@ -43,7 +43,7 @@ const features = [
 export const Features = () => {
   return (
   
-      <section class=" px-4 sm:px-6 lg:px-8">
+      <section class=" px-4 sm:px-6 lg:px-8 -mt-12">
         <div class="max-w-7xl mx-auto">
           <div class="text-center mb-12">
             <span class="text-blue-600 font-semibold text-lg">

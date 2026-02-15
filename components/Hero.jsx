@@ -92,14 +92,14 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative overflow-hidden py-10">
+    <section className="relative overflow-hidden py-28">
       {/* Decorative glow */}
       <div className="absolute inset-0"></div>
 
       <div className="container relative z-10 mx-auto px-6  flex flex-col items-center">
         {/* Centered content */}
         <div className="flex flex-col items-center text-center space-y-8 animate-fade-in-up">
-          <h1 className="text-4xl md:text-4xl lg:text-6xl font-bold leading-tight">
+          <h1 className="text-[32px] md:text-4xl lg:text-6xl font-bold leading-tight">
             Share Files <br />
             <span className=" bg-indigo-500 bg-clip-text text-transparent">
               Instantly & Securely

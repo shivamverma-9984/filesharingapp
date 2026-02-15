@@ -28,8 +28,7 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <Header />
-
-          {children}
+          <div>{children}</div>
 
           <Footer />
         </AuthProvider>
