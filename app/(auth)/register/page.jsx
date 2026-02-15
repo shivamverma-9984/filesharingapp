@@ -43,73 +43,115 @@ export default function Register() {
       }
     } catch (err) {
       toast.error(err.message);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center min-h-screen pt-20 pb-12 bg-gray-50 dark:bg-gray-900 px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white text-gray-500 max-w-[340px] w-full mx-4 md:p-6 p-4 py-8 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10"
+        className="bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 max-w-[400px] w-full p-8 text-left text-sm rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700"
       >
-       <div className="flex flex-col items-center gap-1 mb-4">
-          <h2 className="text-2xl font-bold text-center text-gray-800">
+        <div className="flex flex-col items-center gap-2 mb-8">
+          <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-full mb-2">
+            <User className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+          </div>
+          <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
             Create Account
           </h2>
-          <p>Create a new account to get started</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center">
+            Join thousands of users sharing files securely
+          </p>
         </div>
-        <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
-          <User size={18} />
-          <input
-            className="w-full outline-none bg-transparent py-2.5"
-            type="name"
-            name="name"
-            value={formdata.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-        </div>
-        <div className="flex items-center my-2 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
-          <Mail size={18} />
-          <input
-            className="w-full outline-none bg-transparent py-2.5"
-            type="email"
-            name="email"
-            value={formdata.email}
-            onChange={handleChange}
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div className="flex items-center mt-2 mb-4 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
-          <Lock size={18} />
-          <input
-            className="w-full outline-none bg-transparent py-2.5"
-            type="password"
-            name="password"
-            value={formdata.password}
-            onChange={handleChange}
-            placeholder="Password"
-            required
-          />
+
+        <div className="space-y-4">
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+            <User
+              size={18}
+              className="text-gray-400 group-focus-within:text-indigo-500"
+            />
+            <input
+              className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
+              type="text"
+              name="name"
+              value={formdata.name}
+              onChange={handleChange}
+              placeholder="Full Name"
+              required
+            />
+          </div>
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+            <Mail
+              size={18}
+              className="text-gray-400 group-focus-within:text-indigo-500"
+            />
+            <input
+              className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
+              type="email"
+              name="email"
+              value={formdata.email}
+              onChange={handleChange}
+              placeholder="Email address"
+              required
+            />
+          </div>
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+            <Lock
+              size={18}
+              className="text-gray-400 group-focus-within:text-indigo-500"
+            />
+            <input
+              className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
+              type="password"
+              name="password"
+              value={formdata.password}
+              onChange={handleChange}
+              placeholder="Password"
+              required
+            />
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full mb-3 bg-indigo-500 hover:bg-indigo-600/90 transition py-2.5 rounded text-white font-medium"
+          className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {loading ? "Creating Account..." : "Create Account"}
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Creating Account...
+            </span>
+          ) : (
+            "Create Account"
+          )}
         </button>
-        <p className="text-center">
+
+        <p className="text-center mt-6 text-sm text-gray-500 dark:text-gray-400">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-blue-500 underline"
+            className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition-colors"
           >
             Log In{" "}
           </Link>
