@@ -27,7 +27,7 @@ const steps = [
 export const HowItWorks = () => {
   return (
     <section className="py-20">
-      <div className="container mx-auto px-6">
+      <div className=" mx-auto px-6">
         {/* Heading */}
         <div className="text-center mb-20">
           <h2 className="text-4xl font-bold text-blue-600  mb-4">
@@ -39,7 +39,7 @@ export const HowItWorks = () => {
         </div>
 
         {/* Steps */}
-        <div className="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-3  mx-auto">
           {steps.map((item, index) => {
             const Icon = item.icon;
             return (
