@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import UploadForm from "../../components/UploadForm";
 import toast from "react-hot-toast";
-import { File, Download, Trash2, Clock, HardDrive } from "lucide-react";
+import { File, Download, Trash2, Clock, HardDrive, Eye } from "lucide-react";
 
 function formatFileSize(bytes) {
   if (bytes < 1024) return bytes + " B";
@@ -36,6 +36,10 @@ export default function DashboardPage() {
     const fileKey = urlParts.slice(3).join("/");
     const downloadUrl = `/api/download?key=${encodeURIComponent(fileKey)}&filename=${encodeURIComponent(filename)}`;
     window.open(downloadUrl, "_blank");
+  };
+
+  const handleView = (fileUrl) => {
+    window.open(fileUrl, "_blank");
   };
 
   const handleDelete = async (fileId, fileUrl) => {
@@ -160,6 +164,14 @@ export default function DashboardPage() {
                     >
                       <Download className="w-4 h-4 mr-2" />
                       Download
+                    </button>
+                    <button
+                      onClick={() => handleView(file.url)}
+                      className="inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 transition-all shadow-sm"
+                      title="View"
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      View
                     </button>
                     <button
                       onClick={() => handleDelete(file.id, file.url)}

@@ -52,7 +52,7 @@ export async function POST(request) {
           email: { S: email },
           name: { S: name },
           googleId: { S: googleId },
-          authType: { S: 'google' },
+          authType: { S: 'gmail' },
           createdAt: { S: new Date().toISOString() },
           // optional: picture: { S: picture }
         }

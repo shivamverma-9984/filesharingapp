@@ -40,6 +40,8 @@ export async function POST(request) {
         name: { S: name },
         email: { S: normalizedEmail },
         password: { S: password },
+        authType: { S: 'email' },
+        createdAt: { S: new Date().toISOString() },
       },
     });
 
