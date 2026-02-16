@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
       <AuthContext.Provider value={{ user, login, googleLogin, logout }}>
         {children}
       </AuthContext.Provider>

@@ -159,11 +159,11 @@ export default function Register() {
         </button>
 
         <div className="flex items-center my-3.5">
-          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
-          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">
+          <div className="grow border-t border-gray-200 dark:border-gray-700"></div>
+          <span className="fshrink-0 mx-4 text-gray-400 text-sm">
             Or continue with
           </span>
-          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+          <div className="grow border-t border-gray-200 dark:border-gray-700"></div>
         </div>
 
         <div className="flex justify-center w-full mb-6">
