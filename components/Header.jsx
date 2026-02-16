@@ -53,7 +53,7 @@ export default function Header() {
                   className="flex items-center gap-2 p-1 pl-3 pr-1 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200"
                 >
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:block">
-                    {user.email?.split("@")[0]}
+                    {user.name}
                   </span>
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white font-medium text-sm shadow-sm">
                     {user.email?.[0].toUpperCase()}

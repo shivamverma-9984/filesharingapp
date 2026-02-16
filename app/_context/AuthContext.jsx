@@ -1,6 +1,7 @@
-'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
-import { getUser } from '../lib/auth/getUser';
+"use client";
+import { createContext, useContext, useState, useEffect } from "react";
+import { getUser } from "../lib/auth/getUser";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const AuthContext = createContext();
 
@@ -17,29 +18,51 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (formdata) => {
-      const res = await fetch("/api/login", {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formdata),
+      credentials: "include",
+    });
+    const data = await res.json();
+    if (res.ok && data.user) {
+      setUser(data.user);
+      return { success: true, ...data };
+    }
+    return { success: false, ...data };
+  };
+
+  const googleLogin = async (credential) => {
+    try {
+      const res = await fetch("/api/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formdata),
-        credentials: 'include',
+        body: JSON.stringify({ credential }),
       });
       const data = await res.json();
+
       if (res.ok && data.user) {
         setUser(data.user);
         return { success: true, ...data };
       }
       return { success: false, ...data };
+    } catch (error) {
+      console.error("Google login error", error);
+      return { success: false, message: "Google login failed" };
+    }
   };
 
   const logout = async () => {
-    await fetch('/api/logout', { method: 'POST' });
+    await fetch("/api/logout", { method: "POST" });
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
+      <AuthContext.Provider value={{ user, login, googleLogin, logout }}>
+        {children}
+      </AuthContext.Provider>
+    </GoogleOAuthProvider>
   );
 }
 

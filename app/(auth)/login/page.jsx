@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
 
   const [formdata, setFormdata] = useState({
     email: "",
@@ -60,8 +61,8 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="space-y-4">
-          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+        <div className="space-y-3">
+          <div className="-mt-3 group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
             <Mail
               size={18}
               className="text-gray-400 group-focus-within:text-indigo-500"
@@ -101,7 +102,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-6 mb-6">
+        <div className="flex items-center justify-between mt-4 mb-6">
           <label className="flex items-center gap-2 cursor-pointer group">
             <input
               id="checkbox"
@@ -123,7 +124,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="-mt-2 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -153,7 +154,46 @@ export default function Login() {
           )}
         </button>
 
-        <p className="text-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center my-3.5">
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">
+            Or continue with
+          </span>
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+        </div>
+
+        <div className="flex justify-center w-full mb-6">
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              setLoading(true);
+              try {
+                const data = await googleLogin(credentialResponse.credential);
+                if (data.success) {
+                  toast.success("Login successful!");
+                  setFormdata({ email: "", password: "" });
+                  router.push("/dashboard");
+                } else {
+                  toast.error(data.message || "Google Login Failed");
+                }
+              } catch (err) {
+                console.error(err);
+                toast.error("Something went wrong with Google Login!");
+              } finally {
+                setLoading(false);
+              }
+            }}
+            onError={() => {
+              toast.error("Google Login connection failed");
+            }}
+            theme="filled_blue"
+            shape="rectangular"
+            text="signin_with"
+            locale="en_US"
+            width="330"
+          />
+        </div>
+
+        <p className="-mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
           Don't have an account?{" "}
           <Link
             href="/register"

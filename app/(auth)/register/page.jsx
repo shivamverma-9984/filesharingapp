@@ -5,9 +5,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { GoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../../_context/AuthContext";
 
 export default function Register() {
   const router = useRouter();
+  const { googleLogin } = useAuth();
 
   const [formdata, setFormdata] = useState({
     name: "",
@@ -67,7 +70,7 @@ export default function Register() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 -mt-3">
           <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
             <User
               size={18}
@@ -155,7 +158,48 @@ export default function Register() {
           )}
         </button>
 
-        <p className="text-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex items-center my-3.5">
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">
+            Or continue with
+          </span>
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+        </div>
+
+        <div className="flex justify-center w-full mb-6">
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              setLoading(true);
+              try {
+                // We can use googleLogin from AuthContext even on register page
+                // because the backend endpoint handles creation if user doesn't exist.
+                const data = await googleLogin(credentialResponse.credential);
+                if (data.success) {
+                  toast.success("Account created successfully!");
+                  setFormdata({ name: "", email: "", password: "" });
+                  router.push("/dashboard");
+                } else {
+                  toast.error(data.message || "Google Signup Failed");
+                }
+              } catch (err) {
+                console.error(err);
+                toast.error("Something went wrong with Google Signup!");
+              } finally {
+                setLoading(false);
+              }
+            }}
+            onError={() => {
+              toast.error("Google Signup connection failed");
+            }}
+            theme="filled_blue"
+            shape="rectangular"
+            text="signup_with"
+            locale="en_US"
+            width="330"
+          />
+        </div>
+
+        <p className="text-center -mt-2 text-sm text-gray-500 dark:text-gray-400">
           Already have an account?{" "}
           <Link
             href="/login"
