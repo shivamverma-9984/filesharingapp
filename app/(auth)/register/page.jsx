@@ -36,7 +36,6 @@ export default function Register() {
       });
 
       const data = await res.json();
-      console.log("Registration response:", data);
 
       if (res.ok) {
         toast.success(data.message);
