@@ -6,18 +6,24 @@ export async function POST(request) {
   const { email, password, confirmPassword } = await request.json();
 
   if (!email || !password || !confirmPassword) {
-    return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+    return NextResponse.json(
+      { message: "All fields are required" },
+      { status: 400 },
+    );
   }
 
   if (password !== confirmPassword) {
-    return NextResponse.json({ message: "Passwords do not match" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Passwords do not match" },
+      { status: 400 },
+    );
   }
 
   const normalizedEmail = String(email).trim().toLowerCase();
 
-  // Find the user by scanning emails (normalize stored values) and get its id
+  // Find the user by scanning emails — use correct table name
   const scan = new ScanCommand({
-    TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+    TableName: process.env.AWS_DYNAMODB_USER_TABLE_NAME,
     ProjectionExpression: "id, email",
   });
 
@@ -41,7 +47,7 @@ export async function POST(request) {
 
     // Update the password for the matched user id
     const update = new UpdateItemCommand({
-      TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
+      TableName: process.env.AWS_DYNAMODB_USER_TABLE_NAME,
       Key: { id: { S: userId } },
       UpdateExpression: "SET #pwd = :pwd",
       ExpressionAttributeNames: { "#pwd": "password" },
@@ -49,11 +55,17 @@ export async function POST(request) {
       ReturnValues: "UPDATED_NEW",
     });
 
-    const updateResult = await client.send(update);
+    await client.send(update);
 
-    return NextResponse.json({ message: "Password updated successfully", updated: updateResult.Attributes }, { status: 200 });
+    return NextResponse.json(
+      { message: "Password updated successfully" },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Error updating password:", error);
-    return NextResponse.json({ message: "Error updating password" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error updating password" },
+      { status: 500 },
+    );
   }
 }

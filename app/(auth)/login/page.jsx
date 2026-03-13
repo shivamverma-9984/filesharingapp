@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useAuth } from "../../_context/AuthContext";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -51,7 +50,7 @@ export default function Login() {
       >
         <div className="flex flex-col items-center gap-2 mb-8">
           <div className="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-full mb-2">
-            <Lock className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <Lock className="w-6 h-6 text-[#1c76eb] dark:text-[#1c76eb]" />
           </div>
           <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
             Welcome Back
@@ -124,7 +123,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="-mt-2 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 shadow-lg shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="-mt-2 w-full bg-[#1c76eb] hover:bg-[#1c76eb]/80 text-white font-semibold py-3  shadow-indigo-500/30 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -155,11 +154,11 @@ export default function Login() {
         </button>
 
         <div className="flex items-center my-3.5">
-          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
-          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">
+          <div className="grow border-t border-gray-200 dark:border-gray-700"></div>
+          <span className="shrink-0 mx-4 text-gray-400 text-sm">
             Or continue with
           </span>
-          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+          <div className="grow border-t border-gray-200 dark:border-gray-700"></div>
         </div>
 
         <div className="flex justify-center w-full mb-6">
