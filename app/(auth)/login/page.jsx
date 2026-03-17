@@ -61,10 +61,10 @@ export default function Login() {
         </div>
 
         <div className="space-y-3">
-          <div className="-mt-3 group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+          <div className="-mt-3 group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 focus-within:border-[#1c76eb] focus-within:ring-1 focus-within:ring-[#1c76eb] transition-all">
             <Mail
               size={18}
-              className="text-gray-400 group-focus-within:text-indigo-500"
+              className="text-gray-400 group-focus-within:text-[#1c76eb]"
             />
             <input
               className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
@@ -77,10 +77,10 @@ export default function Login() {
             />
           </div>
 
-          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50  px-3 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
+          <div className="group flex items-center border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50  px-3 focus-within:border-[#1c76eb] focus-within:ring-1 focus-within:ring-[#1c76eb] transition-all">
             <Lock
               size={18}
-              className="text-gray-400 group-focus-within:text-indigo-500"
+              className="text-gray-400 group-focus-within:text-[#1c76eb]"
             />
             <input
               className="w-full bg-transparent p-3 outline-none text-gray-900 dark:text-white placeholder-gray-400"
@@ -94,7 +94,7 @@ export default function Login() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="text-gray-400 hover:text-indigo-500 focus:outline-none"
+              className="text-gray-400 hover:text-[#1c76eb] focus:outline-none"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
@@ -106,7 +106,7 @@ export default function Login() {
             <input
               id="checkbox"
               type="checkbox"
-              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+              className="rounded border-gray-300 text-[#1c76eb] focus:ring-[#1c76eb]"
             />
             <span className="text-sm text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300">
               Remember me
