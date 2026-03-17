@@ -113,7 +113,7 @@ export default function Login() {
             </span>
           </label>
           <a
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+            className="text-sm font-medium text-blue-500 hover:text-blue-400 dark:text-blue-300"
             href="/forgetpassword"
           >
             Forgot Password?
@@ -196,7 +196,7 @@ export default function Login() {
           Don't have an account?{" "}
           <Link
             href="/register"
-            className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition-colors"
+            className="font-semibold text-blue-500 hover:text-blue-400 dark:text-blue-300 transition-colors"
           >
             Create an account
           </Link>

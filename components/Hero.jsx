@@ -3,6 +3,7 @@ import { useAuth } from "../app/_context/AuthContext";
 import { Upload, ArrowRight, Shield, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+// Hero section with modern design and animations
 export const Hero = () => {
   const router = useRouter();
   const { user } = useAuth();
